@@ -32,7 +32,7 @@ export default function Header() {
               About
             </li>
           </Link>
-          <Link to="/">
+          <Link to="/sign-in">
             <li className="cursor-pointer text-slate-700 hover:font-medium">
               Sing In
             </li>
