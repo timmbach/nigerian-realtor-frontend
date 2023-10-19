@@ -1,16 +1,18 @@
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Logo from "../assets/realtor-logo.png";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
     <header className="bg-slate-200 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-2">
-        <Link to="/">
+        <Link className="flex items-center gap-3" to="/">
+          <img src={Logo} alt="logo" className="w-8" />
           <h1 className="font-bold text-sm sm:text-lg flex">
-            <span className="text-slate-500">SELF</span>
-            <span className="text-slate-700">CON</span>
+            <span className="text-slate-500">ready</span>
+            <span className="text-slate-700">homes</span>
           </h1>
         </Link>
         <form className="bg-slate-100 p-2 rounded-lg flex items-center">
@@ -37,7 +39,7 @@ export default function Header() {
           {currentUser ? (
             <Link to="/profile">
               <img
-                className="rounded-full h-7 w-7 object-cover"
+                className="rounded-md h-7 w-7 object-cover"
                 src={currentUser.profileImg}
                 alt="user img"
               ></img>

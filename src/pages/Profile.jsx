@@ -60,15 +60,15 @@ export default function Profile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, avatar: downloadURL })
+          setFormData({ ...formData, profileImg: downloadURL })
         );
       }
     );
   };
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.id]: e.target.value });
-  // };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -173,7 +173,7 @@ export default function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar}
+          src={formData.profileImg || currentUser.profileImg}
           alt="profile"
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
         />
@@ -194,6 +194,7 @@ export default function Profile() {
           type="text"
           placeholder="username"
           defaultValue={currentUser.username}
+          onChange={handleChange}
           id="username"
           className="border p-3 rounded-lg"
         />
@@ -202,11 +203,13 @@ export default function Profile() {
           placeholder="email"
           id="email"
           defaultValue={currentUser.email}
+          onChange={handleChange}
           className="border p-3 rounded-lg"
         />
         <input
           type="password"
           placeholder="password"
+          onChange={handleChange}
           id="password"
           className="border p-3 rounded-lg"
         />

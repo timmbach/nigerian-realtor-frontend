@@ -3,7 +3,7 @@ import { app } from "../firebase";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signInSuccess } from "../redux/user/userslice";
+import { signInSuccess } from "../redux/user/userSlice";
 
 export default function OAuth() {
   const navigate = useNavigate();
