@@ -39,7 +39,7 @@ export default function SignIn() {
       if (data.success === false) {
         // setError(data.message);
         // setLoading(false);
-        dispatch(signInFailure());
+        dispatch(signInFailure(data.message));
         return;
       }
       // setLoading(false);
@@ -50,7 +50,7 @@ export default function SignIn() {
     } catch (error) {
       // setLoading(false);
       // setError(error.message);
-      dispatch(signInFailure());
+      dispatch(signInFailure(error.message));
     }
   };
   // console.log(formData);
