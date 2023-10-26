@@ -143,21 +143,22 @@ export default function Profile() {
     }
   };
 
-  // const handleShowListings = async () => {
-  //   try {
-  //     setShowListingsError(false);
-  //     const res = await fetch(`/api/user/listings/${currentUser._id}`);
-  //     const data = await res.json();
-  //     if (data.success === false) {
-  //       setShowListingsError(true);
-  //       return;
-  //     }
+  const handleShowListings = async () => {
+    try {
+      setShowListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+      console.log(data);
 
-  //     setUserListings(data);
-  //   } catch (error) {
-  //     setShowListingsError(true);
-  //   }
-  // };
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+    }
+  };
 
   // const handleListingDelete = async (listingId) => {
   //   try {
@@ -263,14 +264,16 @@ export default function Profile() {
         <p className="text-green-700 mt-5">
           {updateSuccess ? "User is updated successfully!" : ""}
         </p>
-        <button className="text-green-700 w-full">Show Listings</button>
+        <button onClick={handleShowListings} className="text-green-700 w-full">
+          Show Listings
+        </button>
         <p className="text-red-700 mt-5">
           {showListingsError ? "Error showing listings" : ""}
         </p>
 
         {userListings && userListings.length > 0 && (
           <div className="flex flex-col gap-4">
-            <h1 className="text-center mt-7 text-2xl font-semibold">
+            <h1 className="text-center mt-4 text-2xl font-semibold">
               Your Listings
             </h1>
             {userListings.map((listing) => (
@@ -280,7 +283,7 @@ export default function Profile() {
               >
                 <Link to={`/listing/${listing._id}`}>
                   <img
-                    src={listing.imageUrls[0]}
+                    src={listing.imageURLs[0]}
                     alt="listing cover"
                     className="h-16 w-16 object-contain"
                   />
@@ -292,10 +295,14 @@ export default function Profile() {
                   <p>{listing.name}</p>
                 </Link>
 
-                <div className="flex flex-col item-center">
-                  <button className="text-red-700 uppercase">Delete</button>
+                <div className="flex flex-col items-center">
+                  <button className="text-red-700 font-semibold text-xs uppercase">
+                    Delete
+                  </button>
                   <Link to={`/update-listing/${listing._id}`}>
-                    <button className="text-green-700 uppercase">Edit</button>
+                    <button className="text-green-700 font-semibold text-xs uppercase">
+                      Edit
+                    </button>
                   </Link>
                 </div>
               </div>
