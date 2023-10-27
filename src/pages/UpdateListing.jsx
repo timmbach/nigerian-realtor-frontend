@@ -37,10 +37,15 @@ export default function UpdateListing() {
       const listingId = params.listingId;
       const res = await fetch(`/api/listing/get/${listingId}`);
       const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
       setFormData(data);
     };
 
     fetchListing();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleImageSubmit = () => {
