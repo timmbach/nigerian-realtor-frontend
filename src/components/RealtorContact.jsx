@@ -10,16 +10,17 @@ export default function RealtorContact({ listing }) {
   };
 
   useEffect(() => {
-    const fetchLandlord = async () => {
+    const fetchRealtor = async () => {
       try {
         const res = await fetch(`/api/user/${listing.userRef}`);
         const data = await res.json();
+        console.log(data);
         setRealtor(data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchLandlord();
+    fetchRealtor();
   }, [listing.userRef]);
   return (
     <>
@@ -41,7 +42,7 @@ export default function RealtorContact({ listing }) {
           ></textarea>
 
           <Link
-            to={`mailto:${realtor.email}?subject=Regarding ${listing.name}&body=${message}`}
+            to={`mailto:${realtor.email}?Subject=Inquiry regarding ${listing.name}&body=${message}`}
             className="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95"
           >
             Send Message

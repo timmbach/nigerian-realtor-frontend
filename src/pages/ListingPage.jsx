@@ -143,7 +143,7 @@ export default function ListingPage() {
                   Contact Realtor
                 </button>
               )}
-            {!realtorContact && <RealtorContact listing={listing} />}
+            {realtorContact && <RealtorContact listing={listing} />}
           </div>
         </div>
       )}
