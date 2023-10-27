@@ -13,13 +13,17 @@ import {
   FaParking,
 } from "react-icons/fa";
 import { TiWarningOutline } from "react-icons/ti";
+import { useSelector } from "react-redux";
+import RealtorContact from "../components/RealtorContact";
 
 export default function ListingPage() {
   SwiperCore.use([Navigation]);
   const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [listingError, setListingError] = useState(false);
+  const [realtorContact, setRealtorContact] = useState(false);
   // const listingId = params.listingId;
   useEffect(() => {
     const fetchListing = async () => {
@@ -84,7 +88,7 @@ export default function ListingPage() {
               {listing.name} - &#x20A6;{listing.price.toLocaleString("en-US")}
               {listing.purchaseType === "rent" && " / year"}
             </p>
-            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
+            <p className="flex items-center mt-4 gap-2 text-slate-600  text-sm">
               <FaMapMarkerAlt className="text-green-700" />
               {listing.address}
             </p>
@@ -129,6 +133,17 @@ export default function ListingPage() {
                 {listing.furnished ? "Furnished" : "Unfurnished"}
               </li>
             </ul>
+            {currentUser &&
+              listing.userRef !== currentUser._id &&
+              !realtorContact && (
+                <button
+                  onClick={() => setRealtorContact(true)}
+                  className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                >
+                  Contact Realtor
+                </button>
+              )}
+            {!realtorContact && <RealtorContact listing={listing} />}
           </div>
         </div>
       )}
