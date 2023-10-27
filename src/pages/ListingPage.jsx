@@ -5,6 +5,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
+import {
+  FaBath,
+  FaBed,
+  FaChair,
+  FaMapMarkerAlt,
+  FaParking,
+} from "react-icons/fa";
+import { TiWarningOutline } from "react-icons/ti";
 
 export default function ListingPage() {
   SwiperCore.use([Navigation]);
@@ -57,7 +65,7 @@ export default function ListingPage() {
         </div>
       )}
       {listing && !loading && !listingError && (
-        <>
+        <div>
           <Swiper navigation>
             {listing.imageURLs.map((url) => (
               <SwiperSlide key={url}>
@@ -71,7 +79,58 @@ export default function ListingPage() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </>
+          <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
+            <p className="text-2xl font-semibold">
+              {listing.name} - &#x20A6;{listing.price.toLocaleString("en-US")}
+              {listing.purchaseType === "rent" && " / year"}
+            </p>
+            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
+              <FaMapMarkerAlt className="text-green-700" />
+              {listing.address}
+            </p>
+            <div className="flex gap-6">
+              <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
+                {listing.purchaseType === "rent" ? "For Rent" : "For Sale"}
+              </p>
+              {listing.underOffer && (
+                <div className="flex items-center gap-1">
+                  <TiWarningOutline className="text-yellow-400 text-xl" />
+                  <p className="font-semibold bg-slate-200 rounded-md px-1 text-sm">
+                    Under Offer
+                  </p>
+                </div>
+              )}
+            </div>
+            <p className="text-slate-500">
+              <span className="font-semibold text-black">Description - </span>
+              {listing.description}
+            </p>
+            <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+              <li className="flex items-center gap-1 whitespace-nowrap ">
+                <FaBed className="text-lg" />
+                {listing.bedrooms > 1
+                  ? `${listing.bedrooms} beds `
+                  : `${listing.bedrooms} bed `}
+              </li>
+              <li className="flex items-center gap-1 whitespace-nowrap ">
+                <FaBath className="text-lg" />
+                {listing.bathrooms > 1
+                  ? `${listing.bathrooms} baths `
+                  : `${listing.bathrooms} bath `}
+              </li>
+              {listing.parking && (
+                <li className="flex items-center gap-1 whitespace-nowrap ">
+                  <FaParking className="text-lg" />
+                  {listing.parking ? "Parking spot" : "No Parking Spot"}
+                </li>
+              )}
+              <li className="flex items-center gap-1 whitespace-nowrap ">
+                <FaChair className="text-lg" />
+                {listing.furnished ? "Furnished" : "Unfurnished"}
+              </li>
+            </ul>
+          </div>
+        </div>
       )}
     </main>
   );
