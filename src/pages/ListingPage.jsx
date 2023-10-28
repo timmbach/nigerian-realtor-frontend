@@ -13,6 +13,7 @@ import {
   FaParking,
 } from "react-icons/fa";
 import { TiWarningOutline } from "react-icons/ti";
+import { AiOutlineMail } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import RealtorContact from "../components/RealtorContact";
 
@@ -138,9 +139,10 @@ export default function ListingPage() {
               !realtorContact && (
                 <button
                   onClick={() => setRealtorContact(true)}
-                  className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                  className="bg-slate-700 flex items-center justify-center gap-2 text-white rounded-lg uppercase hover:opacity-95 p-3"
                 >
-                  Contact Realtor
+                  <AiOutlineMail className="font-semibold text-lg" />
+                  <span>Contact Realtor</span>
                 </button>
               )}
             {realtorContact && <RealtorContact listing={listing} />}
