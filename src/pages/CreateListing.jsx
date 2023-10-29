@@ -276,11 +276,11 @@ export default function CreateListing() {
                 required
                 className="p-1 border border-gray-300 rounded-lg w-28"
                 onChange={handleListingInputChange}
-                value={formData.price}
+                value={formData.price.toLocaleString("en-US")}
               />
               <div className="flex gap-1 items-center">
                 <p>Price</p>
-                <span className="text-sm">(&#x20A6; / month)</span>
+                <span className="text-sm">(&#x20A6; / year)</span>
               </div>
             </div>
           </div>
@@ -338,7 +338,7 @@ export default function CreateListing() {
             disabled={formLoading || loadingImages}
             className="p-2 px-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
-            {formLoading ? "Creating" : "Create Listing"}
+            {formLoading ? "Creating..." : "Create Listing"}
           </button>
           {formError && <p className="text-red-700 text-sm">{formError}</p>}
         </div>

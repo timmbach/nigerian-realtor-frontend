@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ScaleLoader } from "react-spinners";
+import ListingCard from "../components/ListingCard";
 
 export default function SearchPage() {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ export default function SearchPage() {
   });
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(null);
 
   //   console.log(sidebarData);
   const handleChange = (e) => {
@@ -81,10 +84,16 @@ export default function SearchPage() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
       //   console.log(data);
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -104,6 +113,20 @@ export default function SearchPage() {
 
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
   return (
     <div className="flex flex-col md:flex-row">
@@ -207,10 +230,39 @@ export default function SearchPage() {
           </button>
         </form>
       </div>
-      <div className="">
+      <div className="w-full">
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5 ">
           Listing results:
         </h1>
+        <div className="p-7 flex flex-wrap gap-4">
+          {loading && (
+            <div className="w-full p-10">
+              <ScaleLoader
+                className="text-center my-7 text-2xl"
+                color="#808080"
+              />
+            </div>
+          )}
+          {!loading && listings.length === 0 && (
+            <div className=" text-slate-700">
+              <p className="text-lg font-semibold">No listing found!</p>
+              <i className="text-sm">Try searching a different keyword</i>
+            </div>
+          )}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingCard key={listing._id} listing={listing} />
+            ))}
+          {showMore && (
+            <button
+              className="text-green-700 hover:underline p-7 text-center w-full"
+              onClick={onShowMoreClick}
+            >
+              Show more
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

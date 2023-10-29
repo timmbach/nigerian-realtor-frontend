@@ -293,11 +293,11 @@ export default function UpdateListing() {
                 required
                 className="p-1 border border-gray-300 rounded-lg w-28"
                 onChange={handleListingInputChange}
-                value={formData.price}
+                value={formData.price.toLocaleString("en-US")}
               />
               <div className="flex gap-1 items-center">
                 <p>Price</p>
-                <span className="text-sm">(&#x20A6; / month)</span>
+                <span className="text-sm">(&#x20A6; / year)</span>
               </div>
             </div>
           </div>
