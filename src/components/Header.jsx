@@ -27,13 +27,13 @@ export default function Header() {
     }
   }, [location.search]);
   return (
-    <header className="bg-slate-200 shadow-md">
+    <header className="bg-sky-700/40 shadow-md">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-2">
         <Link className="flex items-center gap-3" to="/">
           <img src={Logo} alt="logo" className="w-8" />
           <h1 className="font-bold text-sm sm:text-lg flex">
-            <span className="text-slate-500">ready</span>
-            <span className="text-slate-700">homes</span>
+            <span className="text-slate-500">move</span>
+            <span className="text-slate-900">-in</span>
           </h1>
         </Link>
         <form
@@ -45,7 +45,7 @@ export default function Header() {
             name="headerSearch"
             id="headerSearch"
             placeholder="Search..."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            className="bg-transparent focus:outline-none w-44 sm:w-80"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
