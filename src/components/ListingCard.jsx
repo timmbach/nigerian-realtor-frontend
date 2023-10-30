@@ -11,9 +11,7 @@ export default function ListingCard({ listing }) {
       <Link to={`/listing/${listing._id}`}>
         <img
           src={
-            listing.imageURLs[0] ||
-            "https://as1.ftcdn.net/v2/jpg/02/55/97/36/1000_F_255973699_C7dxZWMYR3Q2OJQRDld9Uzh7t7vb51L8.jpg"
-          }
+            listing.imageURLs[0]  }
           alt="listing img"
           className="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300"
         />

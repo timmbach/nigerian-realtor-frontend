@@ -59,11 +59,6 @@ export default function Header() {
               Home
             </li>
           </Link>
-          <Link to="/about">
-            <li className="cursor-pointer hidden sm:inline text-slate-700 hover:font-medium">
-              About
-            </li>
-          </Link>
           {currentUser ? (
             <Link to="/profile">
               <img
